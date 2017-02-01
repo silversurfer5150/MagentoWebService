@@ -43,7 +43,9 @@ class magentoWebService {
 						$costPrice = $item->price;
 						$price += (($item->price/ 100) * 30);
 						$allProducts=array("name" =>$item->name,
-									"sku" =>  $item->ean,
+									"sku" =>  "tg_".$item->stockcode,
+									"ean" =>  $item->ean,
+									"mpn" =>  $item->mpn,
 									"price" =>$price,
 									"cost" =>$costPrice,
 									"categories" => "/".$item->categorypath,
