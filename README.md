@@ -8,3 +8,12 @@ A Web Service which interfaces with Magento using Magmi DataPump API to do smart
 
 <p>I am also providing different services here to inject the data via an uploaded CSV file (incomplete) and also to do automatic updating of the inventory / stock in order to keep the quantity of items and stock status in sync with the supplier. This is intended to run more frequently and be more lightweight. (incomplete as yet)</p>
 
+<h2>Running The Service</h2>
+
+<p>Different tasks must run at different intervals so here you can inject the variable in the terminal command and then retrieve it from the <strong>$argv[]</strong> array.
+
+<p>For example:</p>
+
+<p><strong>php webservice.php "httpCatalog"</strong> or <strong>php webservice.php "inventory"</strong></p>
+
+<p>The cron job can then be scheduled to perform different smart shop tasks at the required intervals. </p>
