@@ -3,6 +3,7 @@ error_reporting(E_ALL);
 
 ini_set('display_errors', '1');
 
+
 // assuming that your script file is located in magmi/integration/scripts/somedirectory/myscript.php,
 // include "magmi_defs.php" , once done, you will be able to use any magmi includes without specific path.
 require_once("../../inc/magmi_defs.php");
@@ -33,41 +34,40 @@ class magentoWebService {
 
 				echo "starting http request...loading xml data from feed\n";
 
-				$xml = simpleXML_load_file($url) or die(error_log("NOTICE OF FAILURE OF WEBSERVICE:\nThe webservice has failed due to the xml content being unavailable at the below url: \n\n https://www.targetcomponents.co.uk/datafeed/download.asp?account=WEY00001&feedid=4915", 1, "will@weys.co.uk, ben@weys.co.uk"));
+				$xml = simpleXML_load_file($url) or die(error_log("NOTICE OF FAILURE OF WEBSERVICE:\nThe webservice has failed due to the xml content being unavailable at the below url: \n\n https://www.targetcomponents.co.uk/datafeed/download.asp?account=WEY00001&feedid=4915", 1, "will@weys.co.uk,ben@weys.co.uk"));
 				echo "data ready...looping to prep for Magmi DataPump\n";
 				$price = 0;
 				foreach($xml->children() as $item) { 
 					if($item->name){
-					$price = $item->price;
-					$costPrice = $item->price;
-					$price += (($item->price/ 100) * 30);
-					$allProducts=array("name" =>$item->name,
-								"sku" =>  $item->ean,
-								"price" =>$price,
-								"cost" =>$costPrice,
-								"categories" => "/".$item->categorypath,
-								"brand" => $item->brand,
-								"attribute_set" =>"Default",
-								"store" =>"admin",
-								"description" => $item->description,
-								"short_description" => $item->short_description,
-								"_attribute_set" =>"Default",
-								"_type" =>"simple",
-								"weight" =>$item->weight,
-								"image" => strtolower($item->image),
-								"small_image" => strtolower($item->small_image),
-								"thumbnail" => strtolower($item->thumbnail),
-								"_root_category" =>"HOME",
-								"visibility" =>4,
-								"_product_websites" =>"base",
-								"qty" =>$item->qty,
-								"is_in_stock" => ($item->qty > 0) ? 1 : 0,
-								"status" => ($item->qty > 0) ? 1 : 2
-								);
+						$price = $item->price;
+						$costPrice = $item->price;
+						$price += (($item->price/ 100) * 30);
+						$allProducts=array("name" =>$item->name,
+									"sku" =>  $item->ean,
+									"price" =>$price,
+									"cost" =>$costPrice,
+									"categories" => "/".$item->categorypath,
+									"brand" => $item->brand,
+									"attribute_set" =>"Default",
+									"store" =>"admin",
+									"description" => $item->description,
+									"short_description" => $item->short_description,
+									"_attribute_set" =>"Default",
+									"_type" =>"simple",
+									"weight" =>$item->weight,
+									"image" => strtolower($item->image),
+									"small_image" => strtolower($item->small_image),
+									"thumbnail" => strtolower($item->thumbnail),
+									"_root_category" =>"HOME",
+									"visibility" =>4,
+									"_product_websites" =>"base",
+									"qty" =>$item->qty,
+									"is_in_stock" => ($item->qty > 0) ? 1 : 0,
+									"status" => ($item->qty > 0) ? 1 : 2
+									);
+						$dp->ingest($allProducts);
 					}
 				} 
-				echo "Injecting Data into Magento DataBase\n";
-				$dp->ingest($allProducts);
 				// End import Session
 				$dp->endImportSession();
 			break;
@@ -124,6 +124,9 @@ class magentoWebService {
 }
 
 $webService= new magentoWebService();
+echo $argv[1]."\n";
+
+
 switch($argv[1]){
 	// Loads the Products via http from a live xml feed
 	case "httpCatalog":
@@ -140,6 +143,9 @@ switch($argv[1]){
 	default:
 	break;
 }
+
+
+$webService->runDataPump("httpCatalog");
 
 echo "web service complete\n";
 //Save string to log, use FILE_APPEND to append.
