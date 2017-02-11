@@ -39,15 +39,15 @@ class magentoWebService {
 				$price = 0;
 				foreach($xml->children() as $item) { 
 					if($item->name){
-						$price = $item->price;
-						$costPrice = $item->price;
-						$price += (($item->price/ 100) * 30);
+						$price = $item->price;  // Get priginal price from feed
+						$costPrice = $item->price; // get price again
+						$price = $price + (($item->price/ 100) * 30); // add percentage 30% to price
 						$allProducts=array("name" =>$item->name,
 									"sku" =>  "tg_".$item->stockcode,
 									"ean" =>  $item->ean,
 									"mpn" =>  $item->mpn,
-									"price" =>$price,
-									"cost" =>$costPrice,
+									"price" =>$price,  // insert price with margin
+									"cost" =>$costPrice, // insert original price
 									"categories" => "/".$item->categorypath,
 									"brand" => $item->brand,
 									"attribute_set" =>"Default",
