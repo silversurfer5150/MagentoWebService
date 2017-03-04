@@ -65,7 +65,7 @@ class magentoWebService {
 									"_product_websites" =>"base",
 									"qty" =>$item->qty,
 									"is_in_stock" => ($item->qty > 0) ? 1 : 0,
-									"status" => ($item->qty > 0) ? 1 : 2
+									"status" => ($item->qty > 0 && $price >0) ? 1 : 2
 									);
 						$dp->ingest($allProducts);
 					}
