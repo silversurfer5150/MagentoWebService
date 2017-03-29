@@ -48,6 +48,7 @@ class magentoWebService {
 									"mpn" =>  $item->mpn,
 									"price" =>$price,  // insert price with margin
 									"cost" =>$costPrice, // insert original price
+									"margin" => ($price - $costPrice), // our profit
 									"categories" => "/".$item->categorypath,
 									"brand" => $item->brand,
 									"attribute_set" =>"Default",
