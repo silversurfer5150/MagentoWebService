@@ -1,0 +1,115 @@
+    /* Set height of the grid so .sidenav can be 100% (adjust if needed) */
+    
+    .row.content {
+        height: 620px
+    }
+    /* Set gray background color and 100% height */
+    
+    .sidenav {
+        height: 100%;
+    }
+    
+    #pricing,
+    #productOverride {
+        display: none;
+    }
+    
+    #pricing .label-danger {
+        display: inline-block;
+        font-size: 1.1em;
+        margin-bottom: 10px;
+    }
+    
+    #pricing .rangeError.text-danger {
+        color: #F1511B;
+        font-size: 1.2em;
+        display: none;
+        margin: 30px 0;
+    }
+    
+    #productOverride label {
+        display: block;
+    }
+    
+    .fa-spin {
+        font-size: 26px;
+        color: green;
+        display: none;
+        margin-left: 20px;
+    }
+    
+    .saveSuccess.text-success {
+        color: green;
+        font-size: 1.2em;
+        display: none;
+        margin: 30px 0;
+    }
+    
+    .case {
+        font-family: courier new;
+        font-size: 1.4em;
+        margin-left: 0px;
+        vertical-align: middle;
+        border: 0;
+        color: #F1511B;
+        font-weight: bold;
+    }
+    
+    .greenPercent {
+        background: #5cb85c;
+        color: #fff;
+        font-size: 1.2em;
+        display: inline-block;
+        vertical-align: middle;
+        margin-left: 10px;
+        padding: 0 10px;
+        border-radius: 4px;
+    }
+    
+    .form-group.sliderSection {
+        margin-bottom: 50px;
+    }
+    
+    .form-group.sliderSection .percentInput {
+        width: 20%;
+    }
+    
+    .nopadding {
+        padding: 0 !important;
+        margin: 0 !important;
+    }
+    
+    .ui-slider.ui-corner-all.ui-slider-horizontal.ui-widget.ui-widget-content {
+        background: #fbbc09 none repeat scroll 0 0;
+        margin: 20px 20px 20px 0;
+        cursor: pointer;
+    }
+    
+    .ui-slider-handle.ui-corner-all.ui-state-default {
+        background: #ccc none repeat scroll 0 0;
+        border: 1px solid #666;
+        cursor: pointer;
+    }
+    
+    .ui-widget.ui-widget-content {
+        border: 1px solid #444;
+    }
+    /* Set black background color, white text and some padding */
+    
+    footer {
+        background-color: #555;
+        color: white;
+        padding: 15px;
+        height: 130px;
+    }
+    /* On small screens, set height to 'auto' for sidenav and grid */
+    
+    @media screen and (max-width: 767px) {
+        .sidenav {
+            height: auto;
+            padding: 15px;
+        }
+        .row.content {
+            height: auto;
+        }
+    }
