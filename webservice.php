@@ -27,9 +27,10 @@ class magentoWebService {
    
     public $JsonConfig = [];
     public function setUpConfig(){
-        $json = file_get_contents("config.json");
+        $json = file_get_contents("./weysApp/config.json");
         $this->JsonConfig = json_decode($json, true);
         $this->JsonConfig = $this->JsonConfig['data'];
+        print_r($this->JsonConfig);
     }
 	public function runDataPump($serviceType){
 			
@@ -155,7 +156,7 @@ class magentoWebService {
 		                if($i <10){
 		                    $cost = $item->price;
 		                    $margin = $this->getPriceRule($cost);
-		                    //echo $margin."\n\n";
+		                    echo $margin."\n\n";
 		                   /*
 		                $item->price = "999.23";
 		                echo "The original price".(float)$item->price;
@@ -187,8 +188,8 @@ class magentoWebService {
                 if($i===0){
                     if($key == 'val'){
                         if($price >0 && $price < $rule){
-                            echo "the price is --- : ".$price." therefore rule ".$i." is chosen \n\n";
-                            //print_r($jsonArray[$i]['margin']);
+                           // echo "the price is --- : ".$price." therefore rule ".$i." is chosen \n\n";
+                            return $jsonArray[$i]['margin'];
                         }
                     }
                 }
@@ -196,10 +197,9 @@ class magentoWebService {
                    // otherwise the minimum is the previous upper limit
                    if($key == 'val') {
                     //echo $rule."<br/>";
-                    echo $jsonArray[$i-1]['val']."<br/>";
                         if($price > $jsonArray[$i-1]['val'] && $price < $rule){
-                            echo "the price is --- : ".$price." therefore rule ".$i." is chosen \n\n";
-                            //print_r($jsonArray[$i]['margin']);
+                           // echo "the price is --- : ".$price." therefore rule ".$i." is chosen \n\n";
+                            return $jsonArray[$i]['margin'];
                         } 
                    }
                }
