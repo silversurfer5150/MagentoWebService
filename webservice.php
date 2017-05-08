@@ -59,12 +59,12 @@ class magentoWebService {
 				$price = 0;
 				foreach($xml->children() as $item) { 
 					if($item->name){
-						$price = $item->price;  // Get priginal price from feed
-						$costPrice = $item->price; // store original price
-						$price = $costPrice + (($item->price/ 100) * 30); // add percentage 30% to price
-						$profit = ($price - $costPrice);
-						$margin = "30%";
-						$price = ceil($price) + 0.99;
+						$costPrice = $item->price; // store cost price
+						$price = ceil((float)$costPrice);
+						$margin = $this->getPriceRule($costPrice); // get margin rule for price range
+						$margin =  ($margin/100) * $price; // calculate price plus margin, round up to nearest pound and - 0.1 to for .99 pricing scheme
+						$price += $margin;
+						$profit = ($price - $costPrice); // profit 
 						$allProducts=array("name" =>$item->name,
 									"sku" =>  "tg_".$item->stockcode,
 									"ean" =>  $item->ean,
@@ -117,12 +117,12 @@ class magentoWebService {
                 $price = 0;
                 foreach($xml->children() as $item) {
                     if($item->sku){
-						$price = $item->price;  // Get priginal price from feed
-						$costPrice = $item->price; // store original price
-						$price = $costPrice + (($item->price/ 100) * 30); // add percentage 30% to price
-                        $profit = ($price - $costPrice);
-                        $margin = "30%";
-                        $price = ceil($price) + 0.99;
+						$costPrice = $item->price; // store cost price
+						$price = ceil((float)$costPrice);
+						$margin = $this->getPriceRule($costPrice); // get margin rule for price range
+						$margin =  ($margin/100) * $price; // calculate price plus margin, round up to nearest pound and - 0.1 to for .99 pricing scheme
+						$price += $margin;
+						$profit = ($price - $costPrice); // profit 
                         $allProducts=array(
                             "sku" =>  "tg_".$item->sku,
                             "price" =>$price,  // insert price with margin
@@ -147,7 +147,7 @@ class magentoWebService {
 			break;
 			case "testDec":
 			echo "testing decimal integrity\n";
-		                $url = 'https://www.targetcomponents.co.uk/datafeed/download.asp?account=WEY00001&feedid=5116';	
+		                $url = 'https://www.targetcomponents.co.uk/datafeed/download.asp?account=WEY00001&feedid=4915';	
 		                echo "starting http request...loading xml data from feed\n";	
 		                $xml = simpleXML_load_file($url);
 		                $i = 0;
